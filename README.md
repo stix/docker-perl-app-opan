@@ -26,23 +26,27 @@ This runs the container with:
  - a directory called `pans/` mounted so that files are kept when stopping the container
 
 ### Uploading
-Your release process is pretty much up to you, but if the common thing is that you have to set the username, password and uri the cpan uploader should use. An example here for `Dist::Zilla` (file: `dist.ini`) using the `UploadToCPAN` plugin:
+Your release process is pretty much up to you, but if the common thing is that you have to set the username, password and uri the cpan uploader should use in whatever way you prefer. An example here for `Dist::Zilla` (file: `dist.ini`) using the `UploadToCPAN` plugin:
 
 ```
 [%PAUSE]
-username = {{ $ENV{OPAN_USERNAME} }}
-password = {{ $ENV{OPAN_PASSWORD} }}
+username = opan
+password = 39703b48af5743d9a7867b73a3ae8256
 ```
 
 Uploading is then a matter of running:
 ```
-CPAN_UPLOADER_UPLOAD_URI=http://localhost:3000/upload OPAN_USERNAME=opan OPAN_PASSWORD=39703b48af5743d9a7867b73a3ae8256 dzil release
+CPAN_UPLOADER_UPLOAD_URI=http://localhost:3000/upload dzil release
 ```
-
-Storing the actual username and password in your `dist.ini` is naturally up to you, but most likely you'll have a CI/CD pipeline that builds and releases for you, and in that case you'll want to have the username and password stored as a secret in whatever system you are using.
 
 You are _supposed to_ be able to set `upload_uri` in the `[%PAUSE]` block in `dist.ini`, but that doesn't seem to work. Using the environment variable does work however.
 
+Storing the actual username and password in your `dist.ini` is naturally up to you, but not what is recommended. Most likely you'll have a CI/CD pipeline that builds and releases for you, and in that case you'll want to have the username and password stored as a secret in whatever system you are using and then inject them into `~/.pause`. An example `~/.pause` file would look like this (the whitespaces are important):
+
+```
+user opan
+password 39703b48af5743d9a7867b73a3ae8256
+```
 
 ### Installing modules
 If you want to install modules from this PAN using `cpanm` you do:
