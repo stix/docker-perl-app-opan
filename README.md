@@ -16,7 +16,7 @@ docker run \
     -e OPAN_AUTH_TOKENS=39703b48af5743d9a7867b73a3ae8256 \
     -p 3000:3000 \
     --mount src="$(pwd)"/pans,target=/opt/opan/pans,type=bind \
-    opan:latest
+    ghcr.io/stix/opan:main
 ```
 
 This runs the container with:
