@@ -9,12 +9,16 @@ There is one mandatory environment variable that must be set: `OPAN_AUTH_TOKENS`
 An example of running the container locally using docker:
 
 ```
+# Create a directory where App::opan can persist data
+mkdir -p pans
+# Start the service
 docker run \
     -it \
     --rm \
     --name opan \
     -e OPAN_AUTH_TOKENS=39703b48af5743d9a7867b73a3ae8256 \
     -p 3000:3000 \
+    --user $(id -u):$(id -g) \
     --mount src="$(pwd)"/pans,target=/opt/opan/pans,type=bind \
     ghcr.io/stix/opan:main
 ```
@@ -24,6 +28,8 @@ This runs the container with:
  - password of `39703b48af5743d9a7867b73a3ae8256` for uploads (the username is `opan`)
  - service port of 3000 exposed
  - a directory called `pans/` mounted so that files are kept when stopping the container
+
+**A note on mounting:** managing file permissions when running containers in multiple environments (locally, Swarm, k8s etc) can be a bit of a chore. You'll notice in the example above that the `--user` option is used. The way it is used here makes it so that the process in the container is run with *your* effective UID/GID so that all files stored by the process is owned by you. *This may or may not be what you want.* This is almost certainly not what you would want to do in a production environment, so modify accordingly.
 
 ### Uploading
 Your release process is pretty much up to you, but if the common thing is that you have to set the username, password and uri the cpan uploader should use in whatever way you prefer. An example here for `Dist::Zilla` (file: `dist.ini`) using the `UploadToCPAN` plugin:
