@@ -59,5 +59,5 @@ In this example `Foo::Bar` and its dependencies are installed and:
  - not running tests (`-n`)
  - making the output neater (`--quiet`)
  - setting `App::opan` as your mirror combining both your custom distributions and cpan as a whole (`--mirror $url`)
- - fetching only `02packages` from our mirror
+ - fetching a combined `02packages` only from our mirror
  - placing the installed distributions to a `local::lib` managed directory
