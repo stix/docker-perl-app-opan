@@ -4,7 +4,7 @@ Docker image providing App::opan running as a (preforking) server
 ## Usage
 
 ### Running the container
-There is one mandatory environment variable that must be set: `OPAN_AUTH_TOKENS`. This should be a comma seperated list of passwords that can be used when uploadring new releases. For more information on environment variables see [the documentation](https://metacpan.org/dist/App-opan/view/script/opan#uploads);
+There is one mandatory environment variable that must be set: `OPAN_AUTH_TOKENS`. This should be a comma separated list of passwords that can be used when uploadring new releases. For more information on environment variables see [the documentation](https://metacpan.org/dist/App-opan/view/script/opan#uploads);
 
 An example of running the container locally using docker:
 
