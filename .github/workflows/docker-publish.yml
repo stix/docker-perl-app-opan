@@ -73,7 +73,5 @@ jobs:
         with:
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
           format: table
-          exit-code: 1
-          ignore-unfixed: true
           vuln-type: os,library
           severity: CRITICAL,HIGH
