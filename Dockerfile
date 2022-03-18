@@ -8,6 +8,7 @@ ENV PERL_MB_OPT="--install_base \"/opt/opan/local\""
 ENV PERL_MM_OPT="INSTALL_BASE=/opt/opan/local"
 
 RUN apt-get update \
+    && apt-get dist-upgrade -y \
     && apt-get install -y --no-install-recommends \
 		libssl-dev \
 		openssl \
